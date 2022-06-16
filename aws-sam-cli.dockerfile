@@ -1,6 +1,6 @@
 FROM debian:11-slim
 
-ARG CLI_VERSION="1.36.0"
+ARG CLI_VERSION="1.43.0"
 
 WORKDIR /tmp
 RUN apt-get update\

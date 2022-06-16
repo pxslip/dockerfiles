@@ -1,0 +1,41 @@
+name: Docker Image CI
+
+on:
+  release:
+    types:
+      - "published"
+
+env:
+  REGISTRY: ghcr.io
+
+jobs:
+  build-laravel:
+    if: contains(github.event.release.tag_name, 'laravel-devcontainer')
+    strategy:
+      matrix:
+        php: [7, 7.3, 7.4, 8, 8.0, 8.1]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to the registry
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push the Laravel Images
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: laravel-devcontainer.dockerfile
+          push: true
+          build-args: |
+            VARIANT=0-${{ matrix.php }}-bullseye
+          tags: |
+            pxslip/${{ github.event.release.tag_name }}-${{ matrix.php }}
