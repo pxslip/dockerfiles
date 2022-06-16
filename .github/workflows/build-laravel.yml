@@ -29,6 +29,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Set the container version
+        id: set-version
+        run: echo "::set-output name=CONTAINER_VERSION::echo ${{ github.event.release.tag_name }} | sed "s/laravel-devcontainer\///""
+
       - name: Build and push the Laravel Images
         uses: docker/build-push-action@v3
         with:
@@ -38,4 +42,4 @@ jobs:
           build-args: |
             VARIANT=${{ matrix.php }}-bullseye
           tags: |
-            pxslip/${{ github.event.release.tag_name }}-${{ matrix.php }}
+            pxslip/${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
