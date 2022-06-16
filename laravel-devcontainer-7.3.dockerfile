@@ -17,7 +17,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   git\
   bash-completion\
   cron\
-  && docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp \
+  && docker-php-ext-configure gd --with-freetype-dir --with-jpeg-dir --with-png-dir --with-webp-dir \
   && docker-php-ext-install pdo_mysql gd exif zip mysqli pdo \
   && pecl install mcrypt \
   # && pecl install xdebug \

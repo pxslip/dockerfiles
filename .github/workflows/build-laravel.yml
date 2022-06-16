@@ -35,7 +35,20 @@ jobs:
           version=$(sed "s/laravel-devcontainer\///" <<< "${{ github.event.release.tag_name }}")
           echo "::set-output name=CONTAINER_VERSION::$version"
 
-      - name: Build and push the Laravel Images
+      - name: Build and push the Laravel Images (7.3)
+        if: matrix.php == 7.3
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: laravel-devcontainer-7.3.dockerfile
+          push: true
+          build-args: |
+            VARIANT=${{ matrix.php }}-bullseye
+          tags: |
+            pxslip/${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
+
+      - name: Build and push the Laravel Images (7.4+)
+        if: matrix.php != 7.3
         uses: docker/build-push-action@v3
         with:
           context: .
