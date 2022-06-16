@@ -36,6 +36,6 @@ jobs:
           file: laravel-devcontainer.dockerfile
           push: true
           build-args: |
-            VARIANT=0-${{ matrix.php }}-bullseye
+            VARIANT=${{ matrix.php }}-bullseye
           tags: |
             pxslip/${{ github.event.release.tag_name }}-${{ matrix.php }}
