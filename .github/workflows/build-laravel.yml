@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Laravel Devcontainer CI
 
 on:
   release:
