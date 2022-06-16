@@ -45,7 +45,7 @@ jobs:
           build-args: |
             VARIANT=${{ matrix.php }}-bullseye
           tags: |
-            pxslip/${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
+            pxslip/laravel-devcontainer:${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
 
       - name: Build and push the Laravel Images (7.4+)
         if: matrix.php != 7.3
@@ -57,4 +57,4 @@ jobs:
           build-args: |
             VARIANT=${{ matrix.php }}-bullseye
           tags: |
-            pxslip/${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
+            pxslip/laravel-devcontainer:${{ steps.set-version.outputs.CONTAINER_VERSION }}-php${{ matrix.php }}
