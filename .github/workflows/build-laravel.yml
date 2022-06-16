@@ -31,7 +31,9 @@ jobs:
 
       - name: Set the container version
         id: set-version
-        run: echo "::set-output name=CONTAINER_VERSION::echo ${{ github.event.release.tag_name }} | sed "s/laravel-devcontainer\///""
+        run: |
+          version=$(sed "s/laravel-devcontainer\///" <<< "${{ github.event.release.tag_name }}")
+          echo "::set-output name=CONTAINER_VERSION::$version"
 
       - name: Build and push the Laravel Images
         uses: docker/build-push-action@v3
