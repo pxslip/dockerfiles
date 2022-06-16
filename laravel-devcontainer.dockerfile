@@ -11,12 +11,13 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
   libjpeg62-turbo-dev\
   libfreetype6-dev\
   libzip-dev\
+  libwebp-dev\
   # useful tools
   mariadb-client\
   git\
   bash-completion\
   cron\
-  && docker-php-ext-configure gd --with-freetype --with-jpeg \
+  && docker-php-ext-configure gd --with-freetype --with-freetype-dir --with-jpeg --with-jpeg-dir --with-png-dir --with-webp-dir --with-webp \
   && docker-php-ext-install pdo_mysql gd exif zip mysqli pdo \
   && pecl install mcrypt \
   # && pecl install xdebug \
